@@ -1,4 +1,5 @@
 import os
+from flask import abort
 from flask import Flask
 from flask import request
 import redis
@@ -14,6 +15,8 @@ def redis_key(key):
         return request.data
     else:
         data = r.get(key)
+        if not data:
+            abort(404)
         return data
 
 
